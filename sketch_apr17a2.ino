@@ -119,6 +119,16 @@ void loop() {
       if(irbuffer_d[flag-1 >= 0 ? flag-1 : buffer_length-1] <= 0 and irbuffer_d[flag] > 0 and (irbuffer_d[flag-4>=0 ? flag-4 : buffer_length-4] <= -1) and time_t1 - top_temp > heart_t_treth*0.8)
       {
         Serial.print(140);
+        
+      }
+      else
+      {
+        Serial.print(0);
+      }
+      Serial.print(",");
+      if(redbuffer_d[flag-1 >= 0 ? flag-1 : buffer_length-1] <= 0 and redbuffer_d[flag] > 0 and (redbuffer_d[flag-4>=0 ? flag-4 : buffer_length-4] <= -1) and time_t1 - top_temp > heart_t_treth*0.8)
+      {
+        Serial.print(-140);
         heart_t_treth += time_t1 - top_temp;
         top_temp = time_t1;
         heart_t_treth /= 2;
@@ -131,25 +141,26 @@ void loop() {
       {
         Serial.print(0);
       }
+      // read next set of samples
+//      particleSensor.nextSample();   
       Serial.print(",");
-      if(redbuffer_d[flag-1 >= 0 ? flag-1 : buffer_length-1] <= 0 and redbuffer_d[flag] > 0 and (redbuffer_d[flag-4>=0 ? flag-4 : buffer_length-4] <= -1))
+//反射波
+      if(irbuffer_d[flag-1>=0 ? flag-1 : buffer_length-1] >= 0 and irbuffer_d[flag] < 0 and time_t1 - top_temp <= heart_t_treth*0.7 and time_t1 - top_temp > heart_t_treth*0.2)
+      {
+        Serial.print(140);
+      }
+      else
+      {
+        Serial.print(0);
+      }
+      Serial.print(",");
+      if(redbuffer_d[flag-1>=0 ? flag-1 : buffer_length-1] >= 0 and redbuffer_d[flag] < 0 and time_t1 - top_temp <= heart_t_treth*0.7 and time_t1 - top_temp > heart_t_treth*0.2)
       {
         Serial.println(-140);
       }
       else
       {
         Serial.println(0);
-      }
-      // read next set of samples
-//      particleSensor.nextSample();   
-//反射波
-      if(1)
-      {
-        
-      }
-      else
-      {
-        
       }
       time_t1++;
       flag++;
