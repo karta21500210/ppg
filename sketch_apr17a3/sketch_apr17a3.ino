@@ -19,8 +19,8 @@
 #include <Wire.h>
 #include "MAX30105.h"
 #include <time.h>
-#define buffer_length 200
-#define output_length 4
+#define buffer_length 100
+#define output_length 5
 
 uint16_t irbuffer[buffer_length], redbuffer[buffer_length], iractop[output_length], redactop[output_length], iracbottom[output_length], redacbottom[output_length];
 uint32_t redtopbuffer[output_length], redbottombuffer[output_length], redsibuffer[output_length], irtopbuffer[output_length], irbottombuffer[output_length], irsibuffer[output_length];
@@ -429,8 +429,8 @@ void loop() {
         }
         //        output_time /= heart_count;
         si_time /= si_count > 0 ? si_count : 0;
-        output_time /= 50;
-        si_time /= 50;
+        output_time *= 0.025;
+        si_time *= 0.025;
         irac /= heart_count;
         redac /= heart_count;
         irdc /= heart_count;
